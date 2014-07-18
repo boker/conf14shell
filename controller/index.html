@@ -1,0 +1,45 @@
+<html ng-app='app'>
+<head>
+    <link rel="stylesheet" href="../lib/bootstrap.css"/>
+    <title>Directive Workshop</title>
+    <script src="../lib/angular.js"></script>
+    <script src="../lib/lodash.js"></script>
+    <!--<script src="controller.js"></script>-->
+    <!--<script src="controller-comm.js"></script>-->
+    <!--<script src="compile.js"></script>-->
+    <!--<script src="link.js"></script>-->
+    <!--<script src="link-transclusion.js"></script>-->
+    <style>
+        .block {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="container" ng-controller="Ctrl">
+    <!--step-1 (controller basic)-->
+    <dir-zero></dir-zero>
+
+    <!--step-2 (inter-directive communication)-->
+    <car></car>
+    <car>
+        <ac></ac>
+    </car>
+    <car>
+        <div ac abs aw></div>
+    </car>
+
+    <!--step-3 (compile)-->
+    <compile-dir></compile-dir>
+
+    <!--step-4 (pre-link & post-link)-->
+    <dir-link></dir-link>
+
+    <!--step-5 (link transclusion)-->
+    <dir-one>
+        <span class="transclude">transcluded element</span>
+    </dir-one>
+
+</div>
+</body>
+</html>
