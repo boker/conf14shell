@@ -8,7 +8,6 @@ angular.module('app', [])
       restrict: 'EA',
       controller: function ($scope, $element, $attrs, $log) {
         console.log('inside controller');
-        console.log($scope, $element, $attrs);
         $log.log('using injected service');
       },
       link: function () {
