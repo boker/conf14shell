@@ -13,14 +13,12 @@
 			<div class="row">
 				Start Year <input type="text" ng-model="startYear">
 				End Year <input type="text" ng-model="endYear">
-				<div class="row">
 					<button ng-click="applyFilters()">Apply Filter</button>
-				</div>
 			</div>
-			<!--<bar-chart title="Average Yearly Cricket Scores"   
-			labels="data.labels">
+			<bar-chart title="Average Yearly Cricket Scores"   
+			labels="labels">
 				<series ng-repeat="scoreset in filteredScores" title="{{scoreset.player}}" ng-model="scoreset.scores"></series>
-			</bar-chart>-->
+			</bar-chart>
 		</div>
 	</body>
 </html>

@@ -16,18 +16,31 @@ angular.module('app', [])
 	];
 
 	$scope.applyFilters = function(){
+		var filteredScores = [];
 		var playerScores = _.chain(scores).filter(function(score){
-			return score.year >= $scope.startYear && score.year <=$scope.endYear;
+			return ($scope.startYear==undefined || score.year >= $scope.startYear) && ($scope.endYear==undefined || score.year <=$scope.endYear);
 		})
 		.groupBy('player')
 		.value();
 		
-		var filteredScores = [];
 		_.forOwn(playerScores, function(playerScore, player){
 			filteredScores.push({player: player, scores: _.map(playerScore, function(score){return score.avg;})});
 		});
+
+		$scope.labels = [];
+		var yearlyGrouped = _.chain(scores).filter(function(score){
+			return ($scope.startYear==undefined || score.year >= $scope.startYear) && ($scope.endYear==undefined || score.year <=$scope.endYear);
+		})
+		.groupBy('year')
+		.value();
+		_.forOwn(yearlyGrouped, function(yearlyScore, year){
+			$scope.labels.push(year);
+		});
+		console.log(filteredScores);
+		console.log($scope.labels);
 		$scope.filteredScores = filteredScores;
 	};
+	//$scope.applyFilters();
 })
 .directive('barChart', function () {
 	function drawChart(elem, dataLabels, series, config){
@@ -64,14 +77,17 @@ angular.module('app', [])
 
 	return {
 		restrict: 'E',
+		transclude: true,
+		template: '<div ng-transclude></div><div></div>',
 		scope: {
 			labels: "="
 		},
 		controller: function($element, $scope, $attrs){
 			var series = {};
+			var drawOnElement = $($element[0].childNodes[1]);
 			this.setSeries = function(name, data){
 				series[name] = data;
-				drawChart($element, $scope.labels, series, {title: $attrs.title});
+				drawChart(drawOnElement, $scope.labels, series, {title: $attrs.title});
 			};
 		}
 	};
