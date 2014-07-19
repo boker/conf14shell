@@ -1,9 +1,7 @@
 //controller
 angular.module('app', [])
   .controller('Ctrl', function ($scope) {
-    $scope.callFromCtrl = function () {
-      console.log('controller method called');
-    };
+
   })
   .directive('dirZero', function () {
     return {
@@ -12,13 +10,8 @@ angular.module('app', [])
         console.log('inside controller');
         $log.log('using injected service');
       },
-      link: function (scope, elem, attr) {
+      link: function () {
         console.log('in link');
-        elem.bind("mouseenter", function () {
-          console.log('in apply');
-          scope.$apply('callFromCtrl()');
-//          scope.$apply(attr.callMethod);
-        })
       }
     }
   })

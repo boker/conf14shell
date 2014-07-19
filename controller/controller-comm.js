@@ -11,34 +11,18 @@ angular.module('app', [])
       restrict: 'EA',
       controller: function ($scope) {
 
-        //console.log($scope.carProp);
-
         $scope.carProp = [];
 
         //shared methods
-        this.addAC = function () {
-          $scope.carProp.push('AC')
+        this.createPart = function (part) {
+          $scope.carProp.push(part)
         };
-        this.addAW = function () {
-          $scope.carProp.push('Alloy Wheel')
-        }
-        this.addABS = function () {
-          $scope.carProp.push('ABS')
-        }
       },
       link: function (scope, elem) {
-        var facility;
 
-        if(scope.carProp.length > 0){
-          facility = scope.carProp.toString();
-        } else {
-          facility = 'nothing';
-        }
-
-        elem.text('This Car have ' + facility);
+        elem.text('This Car have ' + scope.carProp.toString());
         elem.addClass('block');
 
-        //console.log(scope.carProp);
       }
     }
   }).directive('ac', function () {
@@ -46,7 +30,12 @@ angular.module('app', [])
       restrict: 'EA',
       require: '^car',
       link: function (s, e, a, car) {
-        car.addAC();
+        car.createPart('AC');
+      },
+      controller: function () {
+        this.callFn = function () {
+          console.log('calling ...');
+        };
       }
     }
   }).directive('aw', function () {
@@ -54,7 +43,7 @@ angular.module('app', [])
       restrict: 'EA',
       require: '^car',
       link: function (s, e, a, car) {
-        car.addAW();
+        car.createPart('Alloy Wheel');
       }
     }
   }).directive('abs', function () {
@@ -62,7 +51,7 @@ angular.module('app', [])
       restrict: 'EA',
       require: '^car',
       link: function (s, e, a, car) {
-        car.addABS();
+        car.createPart('ABS');
       }
     }
-  })
+  });
