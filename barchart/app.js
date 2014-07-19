@@ -36,49 +36,17 @@ angular.module('app', [])
 		_.forOwn(yearlyGrouped, function(yearlyScore, year){
 			$scope.labels.push(year);
 		});
-		console.log(filteredScores);
-		console.log($scope.labels);
 		$scope.filteredScores = filteredScores;
 	};
-	//$scope.applyFilters();
+
+	$scope.applyFilters();
 })
 .directive('barChart', function () {
-	function drawChart(elem, dataLabels, series, config){
-      var dataSeries = _.map(Object.keys(series), function(key){
-      	return {data: series[key], name: key};
-      });
-		elem.highcharts({
-            chart: {type: 'column'},
-            tooltip:{enabled:false},
-            title: {
-                text: config.title
-            },
-            xAxis: {
-                categories: dataLabels,
-                title:""
-            },
-            yAxis:{
-                title:"",
-                gridLineWidth:0
-            },
-            plotOptions: {
-                column: {
-	                cursor: 'pointer',
-	                dataLabels: {
-	                    enabled: true
-	                },
-                    showInLegend:true
-	            }
-            },
-            series: dataSeries,
-            credits:{enabled: false}
-		});
-	};
-
 	return {
 		restrict: 'E',
 		transclude: true,
-		template: '<div ng-transclude></div><div></div>',
+		template: '<div ng-transclude></div>'
+					+ '<div></div>',
 		scope: {
 			labels: "="
 		},
